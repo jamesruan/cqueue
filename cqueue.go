@@ -18,7 +18,13 @@ type queue struct {
 	tlock *sync.Mutex
 }
 
-func New() *queue {
+type Queue interface {
+	Length() uint32
+	Enqueue(v interface{})
+	Dequeue()(v interface{}, ok bool)
+}
+
+func New() Queue {
 	node := new(node)
 	return &queue{
 		head: node,
